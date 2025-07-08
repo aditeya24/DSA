@@ -1,5 +1,4 @@
 //Write a funcion to rotate a given array's elements
-
 #include <stdio.h>
 void rotate(int a[], int n, char d, int cr)
 {
