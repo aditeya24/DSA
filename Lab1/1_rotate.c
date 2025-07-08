@@ -37,7 +37,7 @@ void main()
 	printf("Enter elements:\n");
 	for(i=0; i<n; i++)
 	{
-	scanf("%d",&a[i]);
+		scanf("%d",&a[i]);
 	}
 	printf("Enter direction of rotation[L,R]: ");
 	scanf(" %c",&d);
@@ -48,7 +48,7 @@ void main()
 	
 	for(i=0; i<n; i++)
 	{
-	printf("%d ",a[i]);
+		printf("%d ",a[i]);
 	}
 	printf("\n");
 }
