@@ -19,11 +19,11 @@ void rotate(int a[], int n, char d, int cr)
 		else if(d=='R')
 		{
 			temp=a[n-1];
-      for(j=n-1;j>0;j--)
-      {
-        a[j]=a[j-1];
-      }
-      a[0]=temp;
+			for(j=n-1;j>0;j--)
+			{
+			a[j]=a[j-1];
+			}
+			a[0]=temp;
 		}
 	}
 }
@@ -35,20 +35,20 @@ void main()
 	scanf("%d",&n);
 	int a[n];
 	printf("Enter elements:\n");
-  for(i=0; i<n; i++)
-  {
-    scanf("%d",&a[i]);
-  }
-  printf("Enter direction of rotation[L,R]: ");
+	for(i=0; i<n; i++)
+	{
+	scanf("%d",&a[i]);
+	}
+	printf("Enter direction of rotation[L,R]: ");
 	scanf(" %c",&d);
 	printf("Enter count of rotation: ");
 	scanf("%d",&cr);
-  
+	
 	rotate(a,n,d,cr);
-  
-  for(i=0; i<n; i++)
-  {
-    printf("%d ",a[i]);
-  }
-  printf("\n");
+	
+	for(i=0; i<n; i++)
+	{
+	printf("%d ",a[i]);
+	}
+	printf("\n");
 }
