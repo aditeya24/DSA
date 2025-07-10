@@ -19,7 +19,21 @@ void bubblesort(int a[], int n)
 
 void selectionsort(int a[], int n)
 {
-  
+  int temp, index=0;
+  for(int i=0; i<n; i++)
+  {
+    index=i;
+    for(int j=i; j<n; j++)
+    {
+      if(a[j]>a[index])
+      {
+        index=j;
+      }
+    }
+    temp=a[i];
+    a[i]=a[index];
+    a[index]=temp;
+  }
 }
 
 void insertionsort(int a[], int n)
