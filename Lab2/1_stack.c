@@ -16,7 +16,7 @@ void push(int item)
 	}
 }
 
-int pop()
+void pop()
 {
 	int item;
 	if(top<0)
@@ -25,9 +25,8 @@ int pop()
 	}
 	else
 	{
-		item=a[top--];
+		printf("Removed: %d",a[top--]);
 	}
-	return item;
 }
 
 int peek()
@@ -67,9 +66,8 @@ void main()
 		}
 		else if(choice==2)
                 {
-                        removed = pop(item);
+                        pop(item);
 			display();
-			printf("Removed: %d\n",removed);
                 }
 		else if(choice==3)
                 {
