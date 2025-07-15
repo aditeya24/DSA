@@ -4,15 +4,25 @@
 int a[MAX];
 int top = -1;
 
+void display()
+{
+	for(int i=0; i<=top; i++)
+	{
+		printf("%d ",a[i]);
+	}
+	printf("\n");
+}
+
 void push(int item)
 {
 	if(top == MAX-1)
 	{
-		printf("Stack overflow");
+		printf("Stack overflow\n");
 	}
 	else
 	{
 		a[++top]=item;
+		display();
 	}
 }
 
@@ -21,30 +31,25 @@ void pop()
 	int item;
 	if(top<0)
 	{
-		printf("Stack underflow");
+		printf("Stack underflow\n");
 	}
 	else
 	{
-		printf("Removed: %d",a[top--]);
+		printf("Removed: %d\n",a[top--]);
+		display();
 	}
 }
 
-int peek()
+void peek()
 {
 	if(top==-1)
 	{
-		printf("Stack empty");
+		printf("Stack empty\n");
 	}
-	return a[top];
-}
-
-void display()
-{
-	for(int i=0; i<=top; i++)
+	else
 	{
-		printf("%d ",a[i]);
+		printf("%d\n", a[top]);
 	}
-	printf("\n");
 }
 
 void main()
@@ -62,17 +67,14 @@ void main()
 			printf("Enter value to push: ");
 			scanf("%d",&item);
 			push(item);
-			display();
 		}
 		else if(choice==2)
                 {
                         pop(item);
-			display();
                 }
 		else if(choice==3)
                 {
-                        value = peek(item);
-			printf("%d\n",value);
+                        peek(item);
                 }
 		else if(choice==4)
 		{
@@ -80,7 +82,7 @@ void main()
 		}
     else
     {
-      printf("ERROR: Invalid choice");
+      printf("ERROR: Invalid choice\n");
     }
 	}
 }
