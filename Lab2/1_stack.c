@@ -4,6 +4,20 @@
 int a[MAX];
 int top = -1;
 
+int full()
+{
+  if(top == MAX-1)
+    return 1;
+  return 0;
+}
+
+int empty()
+{
+  if(top==0)
+    return 1;
+  return 0;
+}
+
 void display()
 {
 	for(int i=0; i<=top; i++)
@@ -15,7 +29,7 @@ void display()
 
 void push(int item)
 {
-	if(top == MAX-1)
+	if(full())
 	{
 		printf("Stack overflow\n");
 	}
@@ -29,7 +43,7 @@ void push(int item)
 void pop()
 {
 	int item;
-	if(top<0)
+	if(empty())
 	{
 		printf("Stack underflow\n");
 	}
@@ -42,7 +56,7 @@ void pop()
 
 void peek()
 {
-	if(top==-1)
+	if(empty())
 	{
 		printf("Stack empty\n");
 	}
