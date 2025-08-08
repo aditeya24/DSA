@@ -8,4 +8,4 @@
    - delete first element
    - delete last element
    - delete any element
-2. Create satck using linked list
+2. Create stack using linked list
