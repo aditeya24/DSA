@@ -1,4 +1,4 @@
-## Lab 4 8/8/25
+# Lab 4 8/8/25
 
 1. Create a single linked list with:
    - insert at beginning
