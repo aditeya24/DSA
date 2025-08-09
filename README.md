@@ -16,6 +16,8 @@ This repository contains the programs I make related to Data Structures and Algo
 | --- | --- | --- |
 | 1 | Array Operations and Sorting | [LAB 1](Lab1) |
 | 2 | Stack Operations | [LAB 2](Lab2) |
+| 3 | Queue, Sparse Polynomials and Matrices | [LAB 3](Lab3) |
+| 4 | Linked Lists | [LAB 4](Lab4) |
 
 ## Other
 - [LeetCode](LeetCode)
