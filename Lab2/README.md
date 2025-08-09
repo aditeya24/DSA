@@ -1,4 +1,4 @@
-## Lab 2 15/7/25
+# Lab 2 15/7/25
 
 1. Write a C program to implement a stack using an array with push and pop operations. Also check whether the stack is full or not.
 2. Write a C program that accepts a string and reverse it using a stack.
