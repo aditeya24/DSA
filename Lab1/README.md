@@ -1,4 +1,4 @@
-## Lab 1 [8/7/25]
+# Lab 1 [8/7/25]
 
 1. Write a function to rotate a given array of elements.
 2. Find the mean, median and mode of list of elements. Use arrays to implement the same. Assume unimode. Write separate functions.
