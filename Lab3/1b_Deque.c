@@ -99,33 +99,64 @@ void display() {
 
 int main() {
 	int choice, item;
-	while (1)
-	{
-		printf("\n1: InsertFront\n2: InsertRear\n3: DeleteFront\n4: DeleteRear\n5: Display\n0: Exit\n");
-		printf("Enter choice[1,2,3,4,5,0]: ");
+	while (1) {
+		printf("\n1: Input-Restricted Queue\n2: Output-Restricted Queue\n0: Exit\n");
+		printf("Enter choice: ");
 		scanf("%d", &choice);
-		if (choice==0) {
+		if (choice == 0) {
 			break;
 		} else if (choice == 1) {
-			printf("Enter value to insert: ");
-			scanf("%d", &item);
-			insertFront(item);
-			display();
+			while (1) {
+				printf("\n1: InsertFront\n2: DeleteFront\n3: DeleteRear\n4: Display\n0: Go Back\n");
+				printf("Enter choice: ");
+				scanf("%d", &choice);
+				if (choice == 0) {
+					break;
+				} else if (choice == 1) {
+					printf("Enter value to insert: ");
+					scanf("%d", &item);
+					insertFront(item);
+					display();
+				} else if (choice == 2) {
+					deleteFront();
+					display();
+				} else if (choice == 3) {
+					deleteRear();
+					display();
+				} else if (choice == 4) {
+					display();
+				} else {
+					printf("ERROR: Invalid choice\n");
+							
+				}
+			}
 		} else if (choice == 2) {
-			printf("Enter value to insert: ");
-			scanf("%d", &item);
-			insertRear(item);
-			display();
-		} else if (choice == 3) {
-			deleteFront();
-			display();
-		} else if (choice == 4) {
-			deleteRear();
-			display();
-		} else if (choice == 5) {
-			display();
-		} else {
-			printf("ERROR: Invalid choice\n");
+			while (1) {
+				printf("\n1: InsertFront\n2: InsertRear\n3: DeleteFront\n4: Display\n0: Go Back\n");
+				printf("Enter choice: ");
+				scanf("%d", &choice);
+				if (choice == 0) {
+					break;
+				} else if (choice == 1) {
+					printf("Enter value to insert: ");
+					scanf("%d", &item);
+					insertFront(item);
+					display();
+				} else if (choice == 2) {
+					printf("Enter value to insert: ");
+					scanf("%d", &item);
+					insertRear(item);
+					display();
+				} else if (choice == 3) {
+					deleteFront();
+					display();
+				} else if (choice == 4) {
+					display();
+				} else {
+					printf("ERROR: Invalid choice\n");
+							
+				}
+			}
 		}
 	}
 	return 0;
