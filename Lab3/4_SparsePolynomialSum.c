@@ -70,13 +70,18 @@ void sort(int n, Polynomial p[]) {
 
 void display(int n, Polynomial p[], int s) {
 	printf("Polynomial %d: ", s);
-	int i;
-	for(i = 0; i < n - 1; i++) {
+	int i, flag = 0;
+	for(i = 0; i < n; i++) {
 		if (p[i].coeff != 0) {
-			printf(" %dx^%d +", p[i].coeff, p[i].exp);
+			if (flag) {
+				printf(" +");
+			printf(" %dx^%d", p[i].coeff, p[i].exp);
+			flag = 1;
 		}
 	}
-	printf(" %dx^%d", p[i].coeff, p[i].exp);
+	if (flag == 0) {
+		printf("0");
+	}
 	printf("\n");
 }
 
