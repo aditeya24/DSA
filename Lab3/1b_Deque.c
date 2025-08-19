@@ -107,7 +107,7 @@ int main() {
 			break;
 		} else if (choice == 1) {
 			while (1) {
-				printf("\n1: InsertFront\n2: DeleteFront\n3: DeleteRear\n4: Display\n0: Go Back\n");
+				printf("\n1: InsertRear\n2: DeleteFront\n3: DeleteRear\n4: Display\n0: Go Back\n");
 				printf("Enter choice: ");
 				scanf("%d", &choice);
 				if (choice == 0) {
@@ -115,7 +115,7 @@ int main() {
 				} else if (choice == 1) {
 					printf("Enter value to insert: ");
 					scanf("%d", &item);
-					insertFront(item);
+					insertRear(item);
 					display();
 				} else if (choice == 2) {
 					deleteFront();
