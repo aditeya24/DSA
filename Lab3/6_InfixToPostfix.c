@@ -32,7 +32,6 @@ void push(char item) {
     return;
   }
   a[++top]=item;
-//  printf("%c", item);
 }
 
 char pop() {

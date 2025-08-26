@@ -8,3 +8,5 @@
    a) Representation of a sparse matrix,
    b) Transpose of a sparse matrix, and
    c) Sum of two sparse matrices.
+6. Write a C program to convert Infix expressions to Postfix.
+7. Write a C program to evaluate Postfix expressions.
