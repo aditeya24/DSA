@@ -9,28 +9,27 @@ typedef struct {
 
 Matrix a[MAX];
 
-void input() {
-  int row, col;
-  printf("Enter number of rows: ");
-  scanf("%d", &row);
-  printf("Enter number of columns: ");
-  scanf("%d", &col);
+void convert(int row, int col, int mat[row][col], int terms) {
+  a[0].row = row;
+  a[0].col = col;
+  a[0].val = terms;
   
-  int mat[row][col];
+  int k = 1;
+
   for (int i = 0; i < row; i++) {
-    printf("Enter elements in row %d:\n", i);
     for (int j = 0; j < col; j++) {
-      scanf("%d", &mat[i][j]);
+      if (mat[i][j] != 0) {
+        a[k].row = i;
+        a[k].col = j;
+        a[k].val = mat[i][j];
+        k++;
+      }
     }
   }
 }
 
-Matrix convert() {
-
-}
-
 void displayMatrix(int row, int col, int mat[row][col]) {
-  printf("Matrix %c: ", ch);
+  printf("Matrix:\n");
   for (int i = 0; i < row; i++) {
     printf("[");
     for (int j = 0; j < col; j++) {
@@ -40,10 +39,33 @@ void displayMatrix(int row, int col, int mat[row][col]) {
   }
 }
 
-void displaySparseMatrix() {
-
+void displaySparseMatrix(int terms) {
+  printf("Sparse Matrix:\n");
+  printf("Row\tCol\tVal\n");
+  for(int i = 0; i < terms + 1; i++) {
+    printf("%d\t%d\t%d\n", a[i].row, a[i].col, a[i].val);
+  }
 }
 
 int main() {
+  int row, col, terms = 0;
+  printf("Enter number of rows: ");
+  scanf("%d", &row);
+  printf("Enter number of columns: ");
+  scanf("%d", &col);
+  
+  int mat[row][col];
+  for (int i = 0; i < row; i++) {
+    printf("Enter elements in row %d:\n", i+1);
+    for (int j = 0; j < col; j++) {
+      scanf("%d", &mat[i][j]);
+      if (mat[i][j] != 0) {
+        terms++;
+      }
+    }
+  }
+  displayMatrix(row, col, mat);
 
+  convert(row, col, mat, terms);
+  displaySparseMatrix(terms);
 }
