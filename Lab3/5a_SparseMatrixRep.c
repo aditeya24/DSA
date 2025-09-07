@@ -39,11 +39,11 @@ void displayMatrix(int row, int col, int mat[row][col]) {
   }
 }
 
-void displaySparseMatrix(int terms) {
-  printf("Sparse Matrix:\n");
+void displaySparseMatrix(Matrix *m) {
+  int terms = m[0].val;
   printf("Row\tCol\tVal\n");
   for(int i = 0; i < terms + 1; i++) {
-    printf("%d\t%d\t%d\n", a[i].row, a[i].col, a[i].val);
+    printf("%d\t%d\t%d\n", m[i].row, m[i].col, m[i].val);
   }
 }
 
@@ -54,6 +54,11 @@ int main() {
   printf("Enter number of columns: ");
   scanf("%d", &col);
   
+  if (row <= 0 || col <= 0) {
+    printf("ERROR: Invalid Matrix Dimensions\n");
+    return 1;
+  }
+
   int mat[row][col];
   for (int i = 0; i < row; i++) {
     printf("Enter elements in row %d:\n", i+1);
@@ -67,5 +72,7 @@ int main() {
   displayMatrix(row, col, mat);
 
   convert(row, col, mat, terms);
-  displaySparseMatrix(terms);
+  printf("Sparse Matrix:\n");
+  displaySparseMatrix(a);
+  return 0;
 }
