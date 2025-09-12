@@ -13,14 +13,14 @@ Node *createNode () {
 	return new;
 }
 
-void returnNode(Node *ptr) {
+void printNode(Node *ptr) {
 	printf("%d\n", ptr->data);
 }
 
 void traverse () {
 	Node *ptr = head;
 	while (ptr != NULL) {
-		returnNode(ptr);
+		printNode(ptr);
 		ptr = ptr->next;
 	}
 }
@@ -42,11 +42,17 @@ void insertRear (int data) {
 		printf("ERROR: Memory insufficient\n");
 		return;
 	}
+	new->data = data;
+	
+	if (head == NULL) {
+		head = new;
+		return;
+	}
+	
 	Node *ptr = head;
 	while (ptr->next != NULL) {
 		ptr = ptr->next;
 	}
-	new->data = data;
 	ptr->next = new;
 }
 
@@ -56,15 +62,17 @@ void insertAtPosition (int data, int item) {
 		printf("ERROR: Memory insufficient\n");
 		return;
 	}
+	new->data = data;
+	
 	Node *ptr = head;
 	while (ptr->data != item && ptr->next != NULL) {
 		ptr = ptr->next;
 	}
-	if (ptr->next == NULL) {
+	if (ptr == NULL) {
 		printf("Item not available");
+		free(new);
 		return;
 	}
-	new->data = data;
 	new->next = ptr->next;
 	ptr->next = new;
 }
@@ -77,29 +85,38 @@ void deleteFront () {
 	}
 	Node *temp = ptr->next;	
 	head = temp;
-	returnNode(ptr);
+	printNode(ptr);
 	free(ptr);
 }
 
 void deleteRear () {
-	Node *ptr = head;
 	if (head == NULL) {
 		printf("List is empty, no deletion\n");
 		return;
 	}
+	Node *ptr = head;
 	Node *temp = NULL; 
 	while (ptr->next != NULL) {
 		temp = ptr;
 		ptr = ptr->next;
 	}
 	temp->next = NULL;
-	returnNode(ptr);
+	printNode(ptr);
 	free(ptr);
 }
 
 void deleteAtPosition (int item) {
+	if (head == NULL) {
+		printf("List is empty, no deletion\n");
+		return;
+	}
+	if (head->data == item) {
+		deleteFront();
+		return;
+	}
+
 	Node *ptr = head;
-	Node *temp = NULL;
+	Node *temp = ptr;
 	while (ptr != NULL) {
 		if (ptr->data != item) {
 			temp = ptr;
@@ -107,7 +124,7 @@ void deleteAtPosition (int item) {
 		} else {
 			temp->next = ptr->next;
 			int item = ptr->data;
-			returnNode(ptr);
+			printNode(ptr);
 			free(ptr);
 		}
 	}
