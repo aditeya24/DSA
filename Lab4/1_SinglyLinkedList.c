@@ -14,7 +14,7 @@ Node *createNode () {
 }
 
 void printNode(Node *ptr) {
-	printf("%d ", ptr->data);
+	printf("%d->", ptr->data);
 }
 
 void traverse () {
@@ -24,7 +24,7 @@ void traverse () {
 		printNode(ptr);
 		ptr = ptr->next;
 	}
-	printf("\n");
+	printf("NULL\n");
 }
 
 void insertFront (int data) {
@@ -100,7 +100,7 @@ void deleteFront () {
 	}
 	toDelete = head;
 	head = head->next;
-	printf("\nData deleted: %d\n", toDelete->data);
+	printf("Data deleted: %d\n", toDelete->data);
 	free(toDelete);
 }
 
@@ -123,7 +123,7 @@ void deleteRear () {
 	} else {
 		secondLastNode->next = NULL;
 	}
-	printf("\nData deleted: %d\n", toDelete->data);
+	printf("Data deleted: %d\n", toDelete->data);
 	free(toDelete);	
 }
 
@@ -146,7 +146,7 @@ void deleteAtPosition (int position) {
 			}
 		}
 		prevNode->next = toDelete->next;
-		printf("Successfully deleted\n");
+		printf("Data deleted: %d\n", toDelete->data);
 		free(toDelete);
 	}
 }
