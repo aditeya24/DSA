@@ -26,3 +26,4 @@
 9. Reverse name using LL.
 
 10. Implement backward and forward navigation of visited web pages in a web browser (i.e. back and forward buttons) using doubly linked list operations.
+11. Implement addition and multiplication of polynomials using singly linked list.
