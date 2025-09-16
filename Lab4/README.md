@@ -24,3 +24,5 @@
 7. Count number of nodes in given list using iterative method and recursive method.
 8. Reverse SLL and DLL.
 9. Reverse name using LL.
+
+10. Implement backward and forward navigation of visited web pages in a web browser (i.e. back and forward buttons) using doubly linked list operations.
