@@ -9,31 +9,34 @@ typedef struct Node {
 Node *head = NULL;
 
 Node *createNode () {
-	Node *new = (Node*)malloc(sizeof(Node));
-	return new;
+	Node *newNode = (Node*)malloc(sizeof(Node));
+	return newNode;
 }
 
 void printNode(Node *ptr) {
-	printf("%d\n", ptr->data);
+	printf("%d ", ptr->data);
 }
 
 void traverse () {
 	Node *ptr = head;
+	printf("List: ");
 	while (ptr != NULL) {
 		printNode(ptr);
 		ptr = ptr->next;
 	}
+	printf("\n");
 }
 
 void insertFront (int data) {
-	Node *new = createNode();
-	if (new == NULL) {
+	Node *newNode = createNode();
+	if (newNode == NULL) {
 		printf("ERROR: Memory insufficient\n");
 		return;
 	}
-	new->data = data;
-	new->next = head;
-	head = new;
+	newNode->data = data;
+	newNode->next = head;
+	head = newNode;
+	printf("Inserted %d\n", data);
 }
 
 void insertRear (int data) {
@@ -54,96 +57,142 @@ void insertRear (int data) {
 		ptr = ptr->next;
 	}
 	ptr->next = new;
+	printf("Inserted %d\n", data);
 }
 
-void insertAtPosition (int data, int item) {
-	Node *new = createNode();
-	if (new == NULL) {
+void insertAtPosition (int data, int position) {
+	Node *newNode = createNode();
+	if (newNode == NULL) {
 		printf("ERROR: Memory insufficient\n");
 		return;
 	}
-	new->data = data;
-	
-	Node *ptr = head;
-	while (ptr->data != item && ptr->next != NULL) {
-		ptr = ptr->next;
-	}
-	if (ptr == NULL) {
-		printf("Item not available");
-		free(new);
+	newNode->data = data;
+	if (position == 1) {
+		insertFront(data);
 		return;
 	}
-	new->next = ptr->next;
-	ptr->next = new;
+
+	Node *curr = head;
+	int count = 2;
+	while (curr != NULL) {
+		if (count == position) {
+			break;
+		}
+		count++;
+		curr = curr->next;
+	}
+	
+	if (curr == NULL) {
+		printf("Position not found\n");
+		free(newNode);
+		return;
+	}
+	newNode->next = curr->next;
+	curr->next = newNode;
+	printf("Inserted %d\n", data);
 }
 
 void deleteFront () {
-	Node *ptr = head;
+	Node *toDelete;
 	if (head == NULL) {
-		printf("List is empty, no deletion\n");
+		printf("List is already empty\n");
 		return;
 	}
-	Node *temp = ptr->next;	
-	head = temp;
-	printNode(ptr);
-	free(ptr);
+	toDelete = head;
+	head = head->next;
+	printf("\nData deleted: %d\n", toDelete->data);
+	free(toDelete);
 }
 
 void deleteRear () {
-	if (head == NULL) {
-		printf("List is empty, no deletion\n");
-		return;
+	Node *toDelete, *secondLastNode;
+	toDelete = head;
+	secondLastNode = head;
+	
+	while (toDelete->next != NULL) {
+		secondLastNode = toDelete;
+		toDelete = toDelete->next;
 	}
-	Node *ptr = head;
-	Node *temp = NULL; 
-	while (ptr->next != NULL) {
-		temp = ptr;
-		ptr = ptr->next;
+	if (toDelete == head) {
+		head = NULL;
+	} else {
+		secondLastNode->next = NULL;
 	}
-	temp->next = NULL;
-	printNode(ptr);
-	free(ptr);
+	printf("\nData deleted: %d\n", toDelete->data);
+	free(toDelete);	
 }
 
-void deleteAtPosition (int item) {
+void deleteAtPosition (int position) {
+	int i;
+	Node *toDelete, *prevNode;
 	if (head == NULL) {
-		printf("List is empty, no deletion\n");
-		return;
-	}
-	if (head->data == item) {
+		printf("List empty");
+	} else if (position == 1) {
 		deleteFront();
-		return;
-	}
-
-	Node *ptr = head;
-	Node *temp = ptr;
-	while (ptr != NULL) {
-		if (ptr->data != item) {
-			temp = ptr;
-			ptr = ptr->next;
-		} else {
-			temp->next = ptr->next;
-			int item = ptr->data;
-			printNode(ptr);
-			free(ptr);
+	} else {
+		toDelete = head;
+		prevNode = head;
+		for (i = 2; i <= position; i++) {
+			prevNode = toDelete;
+			toDelete = toDelete->next;
+			if (toDelete == NULL) {
+				printf("ERROR: Position not found\n");
+				return;
+			}
 		}
-	}
-	if (ptr == NULL) {
-		printf("Node with item does not exist\n");
+		prevNode->next = toDelete->next;
+		printf("Successfully deleted\n");
+		free(toDelete);
 	}
 }
 
 int main() {
-	insertFront(10);
-	insertFront(20);
-	insertRear(5);
-	insertAtPosition(15, 10);
-	traverse();
-	deleteFront();
-	traverse();
-	deleteRear();
-	traverse();
-	deleteAtPosition(15);
-	traverse();
-	return 0;
+	int choice, item, position;
+	while (1) {
+		printf("\n1: Insert Front\n2: Insert Rear\n3: Insert at Position\n4: Delete Front\n5: Delete Rear\n6: Delete At Position\n7: Display\n0: Exit\nEnter choice: ");
+		scanf("%d", &choice);
+		switch (choice) {
+			case 0:
+				return 0;
+			case 1:
+				printf("Enter element: ");
+				scanf("%d", &item);
+				insertFront(item);
+				traverse();
+				break;
+			case 2:
+				printf("Enter element: ");
+				scanf("%d", &item);
+				insertRear(item);
+				traverse();
+				break;
+			case 3:
+				printf("Enter element: ");
+				scanf("%d", &item);
+				printf("Enter position: ");
+				scanf("%d", &position);
+				insertAtPosition(item, position);
+				traverse();
+				break;
+			case 4:
+				deleteFront();
+				traverse();
+				break;
+			case 5:
+				deleteRear();
+				traverse();
+				break;
+			case 6:
+				printf("Enter position: ");
+				scanf("%d", &position);
+				deleteAtPosition(position);
+				traverse();
+				break;
+			case 7:
+				traverse();
+				break;
+			default:
+				printf("ERROR: Invalid choice\n");
+		}
+	}
 }	
