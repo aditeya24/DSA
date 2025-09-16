@@ -42,7 +42,7 @@ void insertFront (int data) {
 void deleteFront () {
 	Node *toDelete;
 	if (head == NULL) {
-		printf("List is already empty\n");
+		printf("Stack is already empty\n");
 		return;
 	}
 	toDelete = head;
@@ -53,7 +53,7 @@ void deleteFront () {
 
 void peek () {
 	if (head == NULL) {
-		printf("List is empty\n");
+		printf("Stack is empty\n");
 		return;
 	}
 	printf("Peek: %d\n", head->data);
