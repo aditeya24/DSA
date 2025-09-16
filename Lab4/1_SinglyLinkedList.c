@@ -40,15 +40,15 @@ void insertFront (int data) {
 }
 
 void insertRear (int data) {
-	Node *new = createNode();
-	if (new == NULL) {
+	Node *newNode = createNode();
+	if (newNode == NULL) {
 		printf("ERROR: Memory insufficient\n");
 		return;
 	}
-	new->data = data;
+	newNode->data = data;
 	
 	if (head == NULL) {
-		head = new;
+		head = newNode;
 		return;
 	}
 	
@@ -56,7 +56,7 @@ void insertRear (int data) {
 	while (ptr->next != NULL) {
 		ptr = ptr->next;
 	}
-	ptr->next = new;
+	ptr->next = newNode;
 	printf("Inserted %d\n", data);
 }
 
