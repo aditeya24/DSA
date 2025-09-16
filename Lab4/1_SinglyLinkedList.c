@@ -106,6 +106,11 @@ void deleteFront () {
 
 void deleteRear () {
 	Node *toDelete, *secondLastNode;
+	if (head == NULL) {
+		printf("List is already empty\n");
+		return;
+	}
+
 	toDelete = head;
 	secondLastNode = head;
 	
