@@ -7,74 +7,104 @@ typedef struct Node {
 	struct Node *next;
 } Node;
 
-Node *head = NULL;
+Node *headA = NULL;
+Node *headB = NULL;
+Node *headC = NULL;
 
 Node *createNode () {
 	Node *newNode = (Node*)malloc(sizeof(Node));
 	return newNode;
 }
 
-void printNode(Node *ptr) {
-	printf("%d->", ptr->data);
-}
-
-void traverse () {
-	Node *ptr = head;
-	printf("List: ");
-	while (ptr != NULL) {
-		printNode(ptr);
-		ptr = ptr->next;
-	}
-	printf("NULL\n");
-}
-
-void insertFront (int data) {
-	Node *newNode = createNode();
-	if (newNode == NULL) {
-		printf("ERROR: Memory insufficient\n");
-		return;
-	}
-	newNode->data = data;
-	newNode->next = head;
-	head = newNode;
-	printf("Inserted %d\n", data);
-}
-
-void deleteFront () {
-	Node *toDelete;
-	if (head == NULL) {
-		printf("List is already empty\n");
-		return;
-	}
-	toDelete = head;
-	head = head->next;
-	printf("Data deleted: %d\n", toDelete->data);
-	free(toDelete);
-}
-
 void input(Node* head, int terms) {
+  int coeff, exp;
   for (int i = 0; i < terms; i++) {
     Node *newNode = createNode();
     if (newNode == NULL) {
       printf("ERROR: Memory insufficient\n");
       return;
     }
-  
+
     printf("Coefficient: ");
-    scanf("%d", &)
+    scanf("%d", &coeff);
+    printf("Exponent: ");
+    scanf("%d", &exp);
     newNode->coeff = coeff;
     newNode->exp = exp;
     newNode->next = head;
     head = newNode;
   }
-  printf("\n");
 }
 
-int add(Node* head_A, Node* head_B, Node* head_C) {
-  int index = 0, flag, i = 0;
-  while (head_A->next != NULL && head_B->next != NULL) {
-    
+void insertFront (Node *head, int coeff, int exp) {
+	Node *newNode = createNode();
+	if (newNode == NULL) {
+		printf("ERROR: Memory insufficient\n");
+		return;
+	}
+	newNode->coeff = coeff;
+	newNode->exp = exp;
+	newNode->next = head;
+	head = newNode;
+}
+
+void add(Node* head_A, Node* head_B, Node* head_C) {
+  int flag, i = 0, sum = 0;
+  Node *curr_A = head_A;
+  Node *curr_B = head_B;
+
+  if (curr_A == NULL && curr_B == NULL) {
+    return;
   }
+
+  while (curr_A->next != NULL && curr_B->next != NULL) {
+    if (curr_A->exp == curr_B->exp) {
+      sum = curr_A->coeff + curr_B->coeff;
+      insertFront(head_C, sum, curr_A->exp);
+      curr_A = curr_A->next;
+      curr_B = curr_B->next;
+    } else if (curr_A->exp > curr_B->exp) {
+      insertFront(head_C, curr_B->coeff, curr_B->exp);
+      curr_B = curr_B->next;
+    } else if (curr_A->exp < curr_B->exp) {
+      insertFront(head_C, curr_A->coeff, curr_A->exp);
+      curr_A = curr_A->next;
+    }
+  }
+
+  if (curr_A != NULL) {
+    while (curr_A != NULL) {
+      insertFront(head_C, curr_A->coeff, curr_A->exp);
+      curr_A = curr_A->next;
+    }
+  }
+
+  if (curr_B != NULL) {
+    while (curr_B != NULL) {
+      insertFront(head_C, curr_B->coeff, curr_B->exp);
+      curr_B = curr_B->next;
+    }
+  }
+}
+
+void printNode(Node *n) {
+  if (n->coeff == 0) {
+    return;
+  }
+  if (n->exp == 0) {
+    printf("%d", n->coeff);
+  }
+	printf("%d^%d", n->coeff, n->exp);
+}
+
+void display(Node* head) {
+  Node* curr = head;
+  while (curr != NULL) {
+		printNode(curr);
+		curr = curr->next;
+	}
+	printf("NULL\n");
+
 }
 
 int main() {
@@ -88,39 +118,31 @@ int main() {
 			case 1:
         printf("Enter no. of terms to insert: ");
 				scanf("%d", &terms);
-        input(head_A, terms);
-				traverse();
+        input(headA, terms);
+        printf("Polynomial A: ");
+        display(headA);
 				break;
 			case 2:
-				printf("Enter element: ");
-				scanf("%d", &item);
-				insertRear(item);
-				traverse();
+        printf("Enter no. of terms to insert: ");
+				scanf("%d", &terms);
+        input(headB, terms);
+        printf("Polynomial B: ");
+        display(headB);
 				break;
 			case 3:
-				printf("Enter element: ");
-				scanf("%d", &item);
-				printf("Enter position: ");
-				scanf("%d", &position);
-				insertAtPosition(item, position);
-				traverse();
+        add(headA, headB, headC);
+        printf("Polynomial C: ");
+        display(headC);
 				break;
 			case 4:
-				deleteFront();
-				traverse();
 				break;
 			case 5:
-				deleteRear();
-				traverse();
+        printf("Polynomial A: ");
+        display(headA);
 				break;
 			case 6:
-				printf("Enter position: ");
-				scanf("%d", &position);
-				deleteAtPosition(position);
-				traverse();
-				break;
-			case 7:
-				traverse();
+        printf("Polynomial B: ");
+        display(headB);
 				break;
 			default:
 				printf("ERROR: Invalid choice\n");
