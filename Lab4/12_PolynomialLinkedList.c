@@ -10,13 +10,26 @@ typedef struct Node {
 Node *headA = NULL;
 Node *headB = NULL;
 Node *headC = NULL;
+Node *headD = NULL;
 
 Node *createNode () {
 	Node *newNode = (Node*)malloc(sizeof(Node));
 	return newNode;
 }
 
-void input(Node* head, int terms) {
+void insertFront (Node **head, int coeff, int exp) {
+	Node *newNode = createNode();
+	if (newNode == NULL) {
+		printf("ERROR: Memory insufficient\n");
+		return;
+	}
+	newNode->coeff = coeff;
+	newNode->exp = exp;
+	newNode->next = *head;
+	*head = newNode;
+}
+
+void input(Node **head, int terms) {
   int coeff, exp;
   for (int i = 0; i < terms; i++) {
     Node *newNode = createNode();
@@ -29,27 +42,22 @@ void input(Node* head, int terms) {
     scanf("%d", &coeff);
     printf("Exponent: ");
     scanf("%d", &exp);
-    newNode->coeff = coeff;
-    newNode->exp = exp;
-    newNode->next = head;
-    head = newNode;
+    insertFront(head, coeff, exp);
   }
 }
 
-void insertFront (Node *head, int coeff, int exp) {
-	Node *newNode = createNode();
-	if (newNode == NULL) {
-		printf("ERROR: Memory insufficient\n");
-		return;
-	}
-	newNode->coeff = coeff;
-	newNode->exp = exp;
-	newNode->next = head;
-	head = newNode;
+void clearList(Node **head) {
+  Node *curr = *head;
+  while (curr != NULL) {
+    Node *temp = curr;
+    curr = curr->next;
+    free(temp);
+  }
+  *head = NULL;
 }
 
-void add(Node* head_A, Node* head_B, Node* head_C) {
-  int flag, i = 0, sum = 0;
+void add(Node *head_A, Node *head_B, Node **head_C) {
+  int sum = 0;
   Node *curr_A = head_A;
   Node *curr_B = head_B;
 
@@ -57,7 +65,7 @@ void add(Node* head_A, Node* head_B, Node* head_C) {
     return;
   }
 
-  while (curr_A->next != NULL && curr_B->next != NULL) {
+  while (curr_A != NULL && curr_B != NULL) {
     if (curr_A->exp == curr_B->exp) {
       sum = curr_A->coeff + curr_B->coeff;
       insertFront(head_C, sum, curr_A->exp);
@@ -87,24 +95,43 @@ void add(Node* head_A, Node* head_B, Node* head_C) {
   }
 }
 
+void product(Node *head_A, Node *head_B, Node **head_D) {
+  
+}
+
 void printNode(Node *n) {
   if (n->coeff == 0) {
     return;
   }
+
   if (n->exp == 0) {
-    printf("%d", n->coeff);
+    printf("%d ", n->coeff);
+    return;
   }
-	printf("%d^%d", n->coeff, n->exp);
+  
+  if (n->coeff == 1) {
+    printf("x^%d ", n->exp);
+    return;
+  }
+	printf("%dx^%d ", n->coeff, n->exp);
 }
 
-void display(Node* head) {
+void display(Node *head) {
   Node* curr = head;
+  if (curr == NULL) {
+    printf("0\n");
+    return;
+  }
+
+  printNode(curr);
+  curr = curr->next;
+
   while (curr != NULL) {
+    printf("+ ");
 		printNode(curr);
 		curr = curr->next;
 	}
-	printf("NULL\n");
-
+  printf("\n");
 }
 
 int main() {
@@ -116,21 +143,24 @@ int main() {
 			case 0:
 				return 0;
 			case 1:
-        printf("Enter no. of terms to insert: ");
+        printf("Enter no. of terms: ");
 				scanf("%d", &terms);
-        input(headA, terms);
+        clearList(headA);
+        input(&headA, terms);
         printf("Polynomial A: ");
         display(headA);
 				break;
 			case 2:
-        printf("Enter no. of terms to insert: ");
+        printf("Enter no. of terms: ");
 				scanf("%d", &terms);
-        input(headB, terms);
+        clearList(headB);
+        input(&headB, terms);
         printf("Polynomial B: ");
         display(headB);
 				break;
 			case 3:
-        add(headA, headB, headC);
+        clearList(&headC);
+        add(headA, headB, &headC);
         printf("Polynomial C: ");
         display(headC);
 				break;
