@@ -8,7 +8,7 @@ typedef struct Node {
 
 Node *head = NULL;
 
-Node *createNode () {
+Node *createNode() {
 	Node *newNode = (Node*)malloc(sizeof(Node));
 	return newNode;
 }
@@ -17,7 +17,7 @@ void printNode(Node *ptr) {
 	printf("%d->", ptr->data);
 }
 
-void traverse () {
+void traverse() {
 	Node *ptr = head;
 	printf("Queue: ");
 	while (ptr != NULL) {
@@ -27,7 +27,7 @@ void traverse () {
 	printf("NULL\n");
 }
 
-void insertFront (int data) {
+void insertFront(int data) {
 	Node *newNode = createNode();
 	if (newNode == NULL) {
 		printf("ERROR: Memory insufficient\n");
@@ -39,7 +39,7 @@ void insertFront (int data) {
 	printf("Inserted %d\n", data);
 }
 
-void deleteRear () {
+void deleteRear() {
 	Node *toDelete, *secondLastNode;
 	if (head == NULL) {
 		printf("Queue is already empty\n");

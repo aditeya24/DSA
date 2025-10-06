@@ -36,7 +36,7 @@ void insertFront (int data) {
 	newNode->data = data;
 	newNode->next = head;
 	head = newNode;
-	printf("Pushed: %d\n", data);
+    printf("Pushed: %d\n", data);
 }
 
 void deleteFront () {
@@ -75,12 +75,12 @@ int main () {
 				traverse();
 				break;
 			case 2:
-        deleteFront();
+                deleteFront();
 				traverse();
 				break;
-      case 3:
-        peek();
-        break;
+            case 3:
+                peek();
+                break;
 			case 4:
 				traverse();
 				break;

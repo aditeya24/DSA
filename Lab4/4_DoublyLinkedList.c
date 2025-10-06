@@ -4,7 +4,7 @@
 typedef struct Node {
 	int data;
 	struct Node *next;
-  struct Node *prev;
+    struct Node *prev;
 } Node;
 
 Node *head = NULL;
@@ -12,10 +12,10 @@ Node *tail = NULL;
 
 Node *createNode () {
 	Node *newNode = (Node*)malloc(sizeof(Node));
-  if (newNode != NULL) {
-    newNode->next = NULL;
-    newNode->prev = NULL;
-  }
+    if (newNode != NULL) {
+        newNode->next = NULL;
+        newNode->prev = NULL;
+    }
 	return newNode;
 }
 
@@ -53,12 +53,12 @@ void insertFront (int data) {
 	}
 	newNode->data = data;
 	newNode->next = head;
-  newNode->prev = NULL;
-  if (head != NULL) {
-    head->prev = newNode;
-  } else {
-    tail = newNode;
-  }
+    newNode->prev = NULL;
+    if (head != NULL) {
+        head->prev = newNode;
+    } else {
+        tail = newNode;
+    }
 	head = newNode;
 	printf("Inserted %d\n", data);
 }
@@ -69,15 +69,15 @@ void insertRear (int data) {
 		printf("ERROR: Memory insufficient\n");
 		return;
 	}
-  newNode->data = data;
-  newNode->next = NULL;
-  newNode->prev = tail;
-  if (tail != NULL) {
-    tail->next = newNode;
-  } else {
-    head = newNode;
-  }
-  tail = newNode;
+    newNode->data = data;
+    newNode->next = NULL;
+    newNode->prev = tail;
+    if (tail != NULL) {
+        tail->next = newNode;
+    } else {
+        head = newNode;
+    }
+    tail = newNode;
 	printf("Inserted %d\n", data);
 }
 
@@ -109,12 +109,12 @@ void insertAtPosition (int data, int position) {
 		return;
 	}
 	newNode->next = curr->next;
-  newNode->prev = curr;
-  if (curr->next != NULL) {
-    curr->next->prev = newNode;
-  } else {
-    tail = newNode;
-  }
+    newNode->prev = curr;
+    if (curr->next != NULL) {
+        curr->next->prev = newNode;
+    } else {
+        tail = newNode;
+    }
 	curr->next = newNode;
 	printf("Inserted %d\n", data);
 }
@@ -127,11 +127,11 @@ void deleteFront () {
 	}
 	toDelete = head;
 	head = head->next;
-  if (head != NULL) {
-    head->prev = NULL;
-  } else {
-    tail = NULL;
-  }
+    if (head != NULL) {
+        head->prev = NULL;
+    } else {
+        tail = NULL;
+    }
 	printf("Data deleted: %d\n", toDelete->data);
 	free(toDelete);
 }
@@ -143,12 +143,12 @@ void deleteRear () {
 		return;
 	}
 	toDelete = tail;
-  tail = tail->prev;
-  if (tail != NULL) {
-    tail->next = NULL;
-  } else {
-    head = NULL;
-  }
+    tail = tail->prev;
+    if (tail != NULL) {
+        tail->next = NULL;
+    } else {
+        head = NULL;
+    }
 	printf("Data deleted: %d\n", toDelete->data);
 	free(toDelete);	
 }
@@ -162,26 +162,26 @@ void deleteAtPosition (int position) {
     return;
 	}
 
-  toDelete = head;
-  for (int i = 2; i <= position; i++) {
-    toDelete = toDelete->next;
-    if (toDelete == NULL) {
-      printf("ERROR: Position not found\n");
-      return;
+    toDelete = head;
+    for (int i = 2; i <= position; i++) {
+        toDelete = toDelete->next;
+        if (toDelete == NULL) {
+            printf("ERROR: Position not found\n");
+            return;
+        }
     }
-  }
-  if (toDelete->prev != NULL) {
-    toDelete->prev->next = toDelete->next;
-  } else {
-    head = toDelete->next;
-  }
-  if (toDelete->next != NULL) {
-    toDelete->next->prev = toDelete->prev;
-  } else {
-    tail = toDelete->prev;
-  }
-  printf("Data deleted: %d\n", toDelete->data);
-  free(toDelete);
+    if (toDelete->prev != NULL) {
+        toDelete->prev->next = toDelete->next;
+    } else {
+        head = toDelete->next;
+    }
+    if (toDelete->next != NULL) {
+        toDelete->next->prev = toDelete->prev;
+    } else {
+        tail = toDelete->prev;
+    }
+    printf("Data deleted: %d\n", toDelete->data);
+    free(toDelete);
 }
 
 int main() {
@@ -207,7 +207,7 @@ int main() {
 			case 3:
 				printf("Enter element: ");
 				scanf("%d", &item);
-				printf("Enter position: ");
+                printf("Enter position: ");
 				scanf("%d", &position);
 				insertAtPosition(item, position);
 				traverse();
