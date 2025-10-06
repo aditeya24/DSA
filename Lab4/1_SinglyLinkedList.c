@@ -49,6 +49,7 @@ void insertRear (int data) {
 	
 	if (head == NULL) {
 		head = newNode;
+        newNode->next = NULL;
 		return;
 	}
 	
@@ -61,16 +62,17 @@ void insertRear (int data) {
 }
 
 void insertAtPosition (int data, int position) {
-	Node *newNode = createNode();
+    if (position == 1) {
+		insertFront(data);
+		return;
+	}
+    Node *newNode = createNode();
 	if (newNode == NULL) {
 		printf("ERROR: Memory insufficient\n");
 		return;
 	}
 	newNode->data = data;
-	if (position == 1) {
-		insertFront(data);
-		return;
-	}
+	
 
 	Node *curr = head;
 	int count = 2;
@@ -131,7 +133,7 @@ void deleteAtPosition (int position) {
 	int i;
 	Node *toDelete, *prevNode;
 	if (head == NULL) {
-		printf("List empty");
+		printf("List is already empty\n");
 	} else if (position == 1) {
 		deleteFront();
 	} else {
