@@ -125,8 +125,10 @@ int main() {
 	int choice, item, position;
 	while (1) {
 		printf("\n1: Home\n2: About\n3: Events\n4: Team\n5: Contact\n6: Display History\n7: Previous Page\n");
-        if (curr != head) {
-            printf("8: Next page\n");
+        if (curr != NULL) {
+            if (curr->next != NULL) {
+                printf("8: Next page\n");
+            }
         }
         printf("0: Exit\nEnter choice: ");
         scanf("%d", &choice);
