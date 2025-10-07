@@ -187,7 +187,7 @@ int main() {
             case 1:
                 printf("Enter no. of terms: ");
                 scanf("%d", &terms);
-                clearList(headA);
+                clearList(&headA);
                 input(&headA, terms);
                 printf("Polynomial A: ");
                 display(headA);
@@ -195,7 +195,7 @@ int main() {
             case 2:
                 printf("Enter no. of terms: ");
                 scanf("%d", &terms);
-                clearList(headB);
+                clearList(&headB);
                 input(&headB, terms);
                 printf("Polynomial B: ");
                 display(headB);
