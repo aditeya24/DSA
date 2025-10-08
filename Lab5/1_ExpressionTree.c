@@ -15,8 +15,8 @@ typedef struct Stack {
 	struct Stack* next;
 } Stack;
 
-Stack *headA = NULL;
-Stack *headB = NULL;
+Stack *operandStack = NULL;
+Stack *operatorStack = NULL;
 
 Node* createNode(int data) { 
     Node* newNode = (Node*)malloc(sizeof(Node)); 
@@ -88,37 +88,37 @@ void createExpressionTree(char s[]) {
 	while (s[i] != '\0') {
 		item = s[i];
 		if ( (item >= 'a' && item <= 'z') || (item >= 'A' && item <= 'Z') || (item >= '0' && item <= '9') ) {
-			push(createNode(item), &headA);
+			push(createNode(item), &operandStack);
 		} else if (item == ')') {
-			while (peekValue(headB) != '\0' && peekValue(headB) != '(') {
-				temp = pop(&headB);
-                temp->right = pop(&headA);
-                temp->left = pop(&headA);
-                push(temp, &headA);
+			while (peekValue(operatorStack) != '\0' && peekValue(operatorStack) != '(') {
+				temp = pop(&operatorStack);
+                temp->right = pop(&operandStack);
+                temp->left = pop(&operandStack);
+                push(temp, &operandStack);
 			}
-			pop(&headB);
+			pop(&operatorStack);
 		} else if (item == '(') {
-			push(createNode(item), &headB);
+			push(createNode(item), &operatorStack);
 		} else {
-			while (peekValue(headB) != '\0' && (precedence(peekValue(headB)) >= precedence(item) || (precedence(peekValue(headB)) == precedence(item) && item != '^'))) {
-				temp = pop(&headB);
-                temp->right = pop(&headA);
-                temp->left = pop(&headA);
-                push(temp, &headA);
+			while (peekValue(operatorStack) != '\0' && (precedence(peekValue(operatorStack)) > precedence(item) || (precedence(peekValue(operatorStack)) == precedence(item) && item != '^'))) {
+				temp = pop(&operatorStack);
+                temp->right = pop(&operandStack);
+                temp->left = pop(&operandStack);
+                push(temp, &operandStack);
 
 			}
-			push(createNode(item), &headB);
+			push(createNode(item), &operatorStack);
 		}
 		i++;
 	}
 
-	while (headB != NULL) {
-        temp = pop(&headB);
-        temp->right = pop(&headA);
-        temp->left = pop(&headA);
-        push(temp, &headA);
+	while (operatorStack != NULL) {
+        temp = pop(&operatorStack);
+        temp->right = pop(&operandStack);
+        temp->left = pop(&operandStack);
+        push(temp, &operandStack);
     }
-    headTree = pop(&headA);
+    headTree = pop(&operandStack);
 }
 
 void Preorder(Node *ptr) {
