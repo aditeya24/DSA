@@ -3,12 +3,12 @@
 #define MAX 20 
 
 typedef struct Node {
-	int data;
+	char data;
 	struct Node* left;
 	struct Node* right;
 } Node;
 
-Node* headTree = NULL;
+Node *headTree = NULL;
 
 typedef struct Stack {
 	struct Node* ptr;
@@ -18,14 +18,19 @@ typedef struct Stack {
 Stack *headA = NULL;
 Stack *headB = NULL;
 
-char infix[MAX];
-
 Node* createNode(int data) { 
-        Node* newNode = (Node*)malloc(sizeof(Node)); 
-        newNode->data = data; 
-        newNode->left = NULL; 
-        newNode->right = NULL; 
-        return newNode; 
+    Node* newNode = (Node*)malloc(sizeof(Node)); 
+    newNode->data = data; 
+    newNode->left = NULL; 
+    newNode->right = NULL; 
+    return newNode; 
+}
+
+Stack* createStackNode(Node *ptr) { 
+    Stack* newNode = (Stack*)malloc(sizeof(Stack)); 
+    newNode->ptr = ptr; 
+    newNode->next = NULL; 
+    return newNode; 
 }
 
 int precedence(char c) {
@@ -44,93 +49,134 @@ int precedence(char c) {
 	return 0;
 }
 
-void push(int data) {
-	Node *newNode = createNode(data);
-	if (newNode == NULL) {
-		printf("ERROR: Memory insufficient\n");
-		return;
-	}
-	newNode->next = head;
-	head = newNode;
+void push(Node *newNode, Stack **head) {
+    Stack *newStackNode = createStackNode(newNode);
+	newStackNode->next = *head;
+	*head = newStackNode;
 }
 
-Node* pop() {
-	Node *toDelete;
-	if (head == NULL) {
+Node* pop(Stack **head) {
+	if (*head == NULL) {
 		printf("Stack is already empty\n");
-		return;
+		return NULL;
 	}
-	toDelete = head;
-	head = head->next;
-	printf("Popped: %d\n", toDelete->data);
-	return toDelete;
+	Stack *toDelete = *head;
+	Node *node = toDelete->ptr;
+	*head = toDelete->next;
 	free(toDelete);
+    return node;
 }
 
-char peek() {
-	if (head == NULL) {
-		printf("Stack is empty\n");
-		return;
-	}
-	return headS->ptr->data;
+char peekValue(Stack *head) {
+    if (head == NULL) {
+        return '\0';
+    }
+	return head->ptr->data;
 }
 
-void createExpressionTree (char *str) {
-	top = -1;
-	int i = 0, j = 0;
-	char item;
-	while (curr != NULL) {
-		item = curr->data	Node *toDelete;
+Stack* peekStack(Stack *head) {
 	if (head == NULL) {
-		printf("Stack is already empty\n");
-		return;
+		return NULL;
 	}
-	toDelete = head;
-	head = head->next;
-	printf("Popped: %d\n", toDelete->data);
-	free(toDelete);;
-		if ( (item >= 'a' && item <= 'z') || (item >= 'A' && item <= 'Z') || (item >= '0' && item <= '9') ) {
-			push(
+	return head;
 }
 
 void createExpressionTree(char s[]) {
-	top = -1;
 	int i = 0, j = 0;
 	char item;
+    Node *temp;
 	while (s[i] != '\0') {
 		item = s[i];
 		if ( (item >= 'a' && item <= 'z') || (item >= 'A' && item <= 'Z') || (item >= '0' && item <= '9') ) {
-			push(s[i], headA);
+			push(createNode(item), &headA);
 		} else if (item == ')') {
-			while (peek() != '(') {
-				postfix[j++] = pop();
+			while (peekValue(headB) != '\0' && peekValue(headB) != '(') {
+				temp = pop(&headB);
+                temp->right = pop(&headA);
+                temp->left = pop(&headA);
+                push(temp, &headA);
 			}
-			pop();
+			pop(&headB);
 		} else if (item == '(') {
-			push(item);
+			push(createNode(item), &headB);
 		} else {
-			while (precedence(peek()) >= precedence(item) || (precedence(peek()) == precedence(item) && item != '^')) {
-				postfix[j++] = pop();
+			while (peekValue(headB) != '\0' && (precedence(peekValue(headB)) >= precedence(item) || (precedence(peekValue(headB)) == precedence(item) && item != '^'))) {
+				temp = pop(&headB);
+                temp->right = pop(&headA);
+                temp->left = pop(&headA);
+                push(temp, &headA);
+
 			}
-			push(item);
+			push(createNode(item), &headB);
 		}
 		i++;
 	}
 
-	while (peek() != '#') {
-		postfix[j++] = pop();
-	}
-	postfix[j] = '\0';
-	
-	return postfix;
+	while (headB != NULL) {
+        temp = pop(&headB);
+        temp->right = pop(&headA);
+        temp->left = pop(&headA);
+        push(temp, &headA);
+    }
+    headTree = pop(&headA);
 }
 
- 
+void Preorder(Node *ptr) {
+    if (ptr != NULL) {
+        printf("%c", ptr->data);
+        Preorder(ptr->left);
+        Preorder(ptr->right);
+    }
+}
+
+void Inorder(Node *ptr) {
+    if (ptr != NULL) {
+        Inorder(ptr->left);
+        printf("%c", ptr->data);
+        Inorder(ptr->right);
+    }
+}
+
+void Postorder(Node *ptr) {
+    if (ptr != NULL) {
+        Postorder(ptr->left);
+        Postorder(ptr->right);
+        printf("%c", ptr->data);
+    }
+}
 
 int main() {
+    char infix[MAX];
 	printf("Enter Infix expression: ");
 	scanf("%s", infix);
-	const char* postfix = infixToPostfix(infix);
-	
-	return 0;	
+    int choice;
+
+    createExpressionTree(infix);
+    while (1) {
+        printf("\n1: Display Prefix Expression\n2: Display Infix Expression\n3: Display Postfix Expression\n0: Exit\nEnter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 0:
+               return 0;
+            case 1:
+                printf("Preorder Expression: ");
+                Preorder(headTree);
+                printf("\n");
+                break;
+            case 2:
+                printf("Inorder Expression: ");
+                Inorder(headTree);
+                printf("\n");
+                break;
+            case 3:
+                printf("Postorder Expression: ");
+                Postorder(headTree);
+                printf("\n");
+                break;
+            default:
+                printf("ERROR: Invalid choice\n");
+                break;
+        }
+    }
 }
