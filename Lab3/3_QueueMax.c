@@ -74,7 +74,8 @@ void maxValue() {
 
 int main() {
 	int choice, item;
-	while (1) {
+
+    while (1) {
 		printf("\n1: Enqueue\n2: Dequeue\n3: Max\n4: Display\n0: Exit\n");
 		printf("Enter choice[1,2,3,4,0]: ");
 		scanf("%d", &choice);

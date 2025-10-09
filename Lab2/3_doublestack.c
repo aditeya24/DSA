@@ -96,14 +96,14 @@ void main()
 		}
 		else if(choice==3)
 		{
-                        pop1(item);
-                        display1();
-                }
+            pop1(item);
+            display1();
+        }
 		else if(choice==4)
 		{
-                        pop2(item);
-                        display2();
-                }
+            pop2(item);
+            display2();
+        }
 		else if(choice==5)
 		{
 			display1();

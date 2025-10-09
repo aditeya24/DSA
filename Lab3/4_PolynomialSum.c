@@ -88,7 +88,8 @@ void display(int n, Polynomial p[], int s) {
 
 int main() {
 	int m, n, result_size;
-	printf("Enter size of Polynomial 1:  ");
+
+    printf("Enter size of Polynomial 1:  ");
 	scanf("%d", &m);
 	printf("Enter size of Polynomial 2:  ");
 	scanf("%d", &n);
