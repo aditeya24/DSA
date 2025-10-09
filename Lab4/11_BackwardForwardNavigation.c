@@ -104,15 +104,29 @@ void addHistory(int data) {
 }
 
 void previousPage() {
+    if (curr == NULL) {
+        return;
+    }
+    if (curr != NULL) {
+        if (curr->prev == NULL) {
+            printf("Already at oldest page.\n");
+            return;
+        }
+    }
     curr = curr->prev;
     displayCurrentPage();
     display();
 }
 
 void nextPage() {
-    if (curr->next == NULL) {
-        printf("Already at latest page.\n");
+    if (curr == NULL) {
         return;
+    }
+    if (curr != NULL) {
+        if (curr->next == NULL) {
+            printf("Already at latest page.\n");
+            return;
+        }
     }
     curr = curr->next;
     displayCurrentPage();
@@ -124,8 +138,11 @@ void nextPage() {
 int main() {
 	int choice, item, position;
 	while (1) {
-		printf("\n1: Home\n2: About\n3: Events\n4: Team\n5: Contact\n6: Display History\n7: Previous Page\n");
+		printf("\n1: Home\n2: About\n3: Events\n4: Team\n5: Contact\n6: Display History\n");
         if (curr != NULL) {
+            if (curr->prev != NULL) {
+                printf("7: Previous page\n");
+            }
             if (curr->next != NULL) {
                 printf("8: Next page\n");
             }
