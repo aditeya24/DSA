@@ -5,10 +5,10 @@
 #define MAXDEFITION 300
 
 typedef struct Node {
-	char word[MAXWORD];
-	char meaning[MAXDEFITION];
-	struct Node* left;
-	struct Node* right;
+    char word[MAXWORD];
+    char meaning[MAXDEFITION];
+    struct Node* left;
+    struct Node* right;
 } Node;
 
 Node *headTree = NULL;
