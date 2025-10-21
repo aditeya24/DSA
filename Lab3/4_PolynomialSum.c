@@ -75,7 +75,7 @@ void display(int n, Polynomial p[], int s) {
 		if (p[i].coeff != 0) {
 			if (flag) {
 				printf(" +");
-      }
+            }
 			printf(" %dx^%d", p[i].coeff, p[i].exp);
 			flag = 1;
 		}
