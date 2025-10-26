@@ -79,21 +79,21 @@ int main() {
                 return 0;
             case 1:
                 printf("Enter word: ");
-                scanf("%s", word);
+                scanf("%99s", word);
                 headTree = insertion(&headTree, word, "");
                 display(search(headTree, word));
                 break;
             case 2:
                 printf("Enter word: ");
-                scanf("%s", word);
+                scanf("%99s", word);
                 printf("Enter meaning: ");
-                scanf("%s", meaning);
+                scanf(" %299[^\n]", meaning);
                 headTree = insertion(&headTree, word, meaning);
                 display(search(headTree, word));
                 break;
             case 3:
                 printf("Enter word: ");
-                scanf("%s", word);
+                scanf("%99s", word);
                 display(search(headTree, word));
                 break;
             case 4:
