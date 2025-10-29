@@ -6,62 +6,38 @@
  * };
  */
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
-    struct ListNode* currA; 
-    struct ListNode* currB; 
-    struct ListNode* currC; 
-    struct ListNode* headC;
-    currA = list1;
-    currB = list2;
-    if (currA != NULL && currB != NULL) {
-        if (currA->val < currB->val) {
-            currC = currA;
-            currA = currA->next;
-            headC = currC;
-        } else if (currA->val > currB->val) {
-            currC = currB;
-            currB = currB->next;
-            headC = currC;
-        } else if (currA->val == currB->val) {
-            currC = currA;
-            currA = currA->next;
-            headC = currC;
-            currC->next = currB;
-            currB = currB->next;
-            currC = currC->next;
-        }
-        while (currA->next != NULL && currB->next != NULL) {
-            if (currA->val < currB->val) {
-                currC->next = currA;
-                currA = currA->next;
-                currC = currC->next;
-            } else if (currA->val > currB->val) {
-                currC->next = currB;
-                currB = currB->next;
-                currC = currC->next;
-            } else if (currA->val == currB->val) {
-                currC->next = currA;
-                currA = currA->next;
-                currC = currC->next;
-                currC->next = currB;
-                currB = currB->next;
-                currC = currC->next;
-            }
-        }
-        if (currA->next != NULL) {
-            while (currA->next != NULL) {
-                currC->next = currA;
-                currA = currA->next;
-                currC = currC->next;
-            }
-        }
-        if (currB->next != NULL) {
-            while (currB->next != NULL) {
-                currC->next = currB;
-                currB = currB->next;
-                currC = currC->next;
-            }
-        }
+    struct ListNode* head; 
+    struct ListNode* tail;
+
+    if (!list1) return list2;
+    if (!list2) return list1;
+        
+    if (list1->val <= list2->val) {
+        head = list1;
+        tail = list1;
+        list1 = list1->next;
+    } else {
+        head = list2;
+        tail = list2;
+        list2 = list2->next;
     }
 
-    return headC;
+    while (list1 != NULL && list2 != NULL) {
+        if (list1->val < list2->val) {
+            tail->next = list1;
+            list1 = list1->next;
+            tail = tail->next;
+        } else {
+            tail->next = list2;
+            list2 = list2->next;
+            tail = tail->next;
+        }
+    }
+    if (list1 != NULL) {
+        tail->next = list1;
+    } else {
+        tail->next = list2;
+    }
+
+    return head;
 }
